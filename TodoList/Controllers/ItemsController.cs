@@ -8,7 +8,7 @@ using System.Net;
 
 namespace TodoList.Controllers
 {
-    public class IndexController : Controller
+    public class ItemsController : Controller
     {
         private Database1Entities _db = new Database1Entities();
         // GET: Index
