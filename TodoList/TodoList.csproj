@@ -180,6 +180,7 @@
       <DependentUpon>Database1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\ItemsCreateViewModel.cs" />
     <Compile Include="ViewModel\ItemsIndexViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

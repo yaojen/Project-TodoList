@@ -40,16 +40,22 @@ namespace TodoList.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Subject,CreateDate,Finished,UserId,Memo")]WorkItem workitem)
+        public ActionResult Create(ItemsCreateViewModel itemsCreateViewModel)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _db.WorkItem.Add(workitem);
-                    _db.SaveChanges();
+                    var workItem = new WorkItem()
+                    {
+                        CreateDate = DateTime.Now,
+                        Finished = itemsCreateViewModel.Finished,
+                        Memo = itemsCreateViewModel.Memo,
+                        Subject = itemsCreateViewModel.Subject,
 
-                    return RedirectToAction("Index");
+                    };
+                    _db.WorkItem.Add(workItem);
+                    _db.SaveChanges();
                 }
             }
             catch (Exception)
@@ -57,7 +63,7 @@ namespace TodoList.Controllers
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
 
-            return View(workitem);
+            return RedirectToAction("Index");
         }
 
 

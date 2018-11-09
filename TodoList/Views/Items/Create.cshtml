@@ -1,17 +1,29 @@
-﻿@model TodoList.Models.WorkItem
+﻿@model TodoList.ViewModel.ItemsCreateViewModel
 @{
     ViewBag.Title = "Create";
 }
 
 <h2>新增</h2>
 
-@using (Html.BeginForm("Create", "Index", FormMethod.Post))
+@using (Html.BeginForm("Create", "Items", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    @Html.EditorFor(x => x.Subject)
-    @Html.EditorFor(x => x.Finished)
-    @Html.EditorFor(x => x.Memo)
-    @Html.EditorFor(x => x.UserId)
-    <input type="submit" value="送出"/>
+<table>
+    <tr>
+        <td>Subject</td>
+        <td>@Html.EditorFor(x => x.Subject)</td>
+    </tr>
+    <tr>
+        <td>Finished</td>
+        <td>@Html.EditorFor(x => x.Finished)</td>
+    </tr>
+    <tr>
+        <td>Memo</td>
+        <td>@Html.EditorFor(x => x.Memo)</td>
+    </tr>
+    <tr>
+        <td colspan="2"><input type="submit" value="送出" /></td>
+    </tr>
+</table>
 }
 
