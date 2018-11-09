@@ -1,0 +1,17 @@
+﻿@model TodoList.Models.WorkItem
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>新增</h2>
+
+@using (Html.BeginForm("Create", "Index", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.EditorFor(x => x.Subject)
+    @Html.EditorFor(x => x.Finished)
+    @Html.EditorFor(x => x.Memo)
+    @Html.EditorFor(x => x.UserId)
+    <input type="submit" value="送出"/>
+}
+
