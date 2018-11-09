@@ -4,31 +4,38 @@
     ViewBag.Title = "Index";
 }
 
-<table>
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Subject</th>
-            <th>CreateDate</th>
-            <th>Finished</th>
-            <th>UserId</th>
-            <th>Memo</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+@if (Model == null || Model.Count() == 0)
+{
+    <p>沒有代辦清單</p>
+}
+else
+{
+    <table>
+        <thead>
             <tr>
-                <td>@item.Id</td>
-                <td>@item.Subject</td>
-                <td>@item.CreateDate</td>
-                <td>@item.Finished</td>
-                <td>@item.UserId</td>
-                <td>@item.Memo</td>
-                <td>@Html.ActionLink("編輯","Edit",new { Id = item.Id})</td>
-                <td>@Html.ActionLink("刪除","Delete",new { Id = item.Id})</td>
+                <th>Id</th>
+                <th>Finished</th>
+                <th>Subject</th>
+                <th>Memo</th>
+                <th>CreateDae</th>
+                <th></th>
+                <th></th>
             </tr>
-        }
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Finished</td>
+                    <td>@item.Subject</td>
+                    <td>@item.Memo</td>
+                    <td>@item.CreateDate</td>
+                    <td>@Html.ActionLink("編輯", "Edit", new { Id = item.Id })</td>
+                    <td>@Html.ActionLink("刪除", "Delete", new { Id = item.Id })</td>
+                </tr>
+            }
 
-    </tbody>
-</table>
+        </tbody>
+    </table>
+}

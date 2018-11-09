@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using TodoList.Models;
 using System.Net;
+using TodoList.ViewModel;
 
 namespace TodoList.Controllers
 {
@@ -15,7 +16,16 @@ namespace TodoList.Controllers
 
         public ActionResult Index()
         {
-            var workItems = _db.WorkItem.ToList();
+            var workItems = _db.WorkItem
+                .Select(x => new ItemsIndexViewModel
+                {
+                    Id = x.Id,
+                    CreateDate = x.CreateDate,
+                    Finished = x.Finished,
+                    Memo = x.Memo,
+                    Subject = x.Subject
+                })
+                .ToList();
 
             return View(workItems);
         }
@@ -30,7 +40,7 @@ namespace TodoList.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include ="Subject,CreateDate,Finished,UserId,Memo")]WorkItem workitem)
+        public ActionResult Create([Bind(Include = "Subject,CreateDate,Finished,UserId,Memo")]WorkItem workitem)
         {
             try
             {
@@ -56,9 +66,9 @@ namespace TodoList.Controllers
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-               
+
             }
-            
+
             var workItem = _db.WorkItem.Find(id);
 
             if (workItem == null)
@@ -68,11 +78,11 @@ namespace TodoList.Controllers
 
             return View(workItem);
         }
-        
+
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        [Route(Name ="Edit")]
+        [Route(Name = "Edit")]
         public ActionResult EditPost(int? id)
         {
             if (id == null)
@@ -84,7 +94,7 @@ namespace TodoList.Controllers
             {
                 var workitem = _db.WorkItem.Find(id);
 
-                if (TryUpdateModel(workitem,new string[] { }))
+                if (TryUpdateModel(workitem, new string[] { }))
                 {
                     try
                     {
@@ -94,7 +104,7 @@ namespace TodoList.Controllers
                     catch (Exception)
                     {
                         ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
-                        
+
                     }
                 }
             }

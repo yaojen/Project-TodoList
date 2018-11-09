@@ -8,11 +8,12 @@ namespace TodoList.ViewModel
 {
     public class ItemsIndexViewModel
     {
+        public int Id { get; set; }
         public string Subject { get; set; }
 
         public DateTime? CreateDate { get; set; }
 
-        public bool Finished { get; set; }
+        public bool? Finished { get; set; }
 
         public string Memo { get; set; }
 
