@@ -1,0 +1,39 @@
+﻿@model TodoList.Models.WorkItem
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>編輯</h2>
+
+
+@using (@Html.BeginForm("EditPost", "Index", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <table>
+        <tbody>
+            <tr>
+                <td>Id</td>
+                <td><input name="Id" type="text" value=@Model.Id /></td>
+            </tr>
+            <tr>
+                <td>Subject</td>
+                <td><input name="Subject" type="text" value=@Model.Subject /></td>
+            </tr>
+            <tr>
+                <td>UserId</td>
+                <td><input name="UserId" type="text" value=@Model.UserId /></td>
+            </tr>
+            <tr>
+                <td>Memo</td>
+                <td><input name="memo" type="text" value=@Model.Memo /></td>
+            </tr>
+            <tr>
+                <td>Finished</td>
+                <td><input name="finished" type="checkbox" value=@Model.Finished  /></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="修改"/></td>
+            </tr>
+        </tbody>
+    </table>
+}

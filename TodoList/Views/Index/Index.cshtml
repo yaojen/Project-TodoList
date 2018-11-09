@@ -26,6 +26,7 @@
                 <td>@item.UserId</td>
                 <td>@item.Memo</td>
                 <td>@Html.ActionLink("編輯","Edit",new { Id = item.Id})</td>
+                <td>@Html.ActionLink("刪除","Delete",new { Id = item.Id})</td>
             </tr>
         }
 

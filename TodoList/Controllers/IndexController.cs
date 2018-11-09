@@ -102,5 +102,26 @@ namespace TodoList.Controllers
             return View();
         }
 
+
+
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+                new HttpNotFoundResult();
+
+            var item = _db.WorkItem.Find(id);
+
+            if (item == null)
+            {
+                new HttpNotFoundResult();
+            }
+
+            _db.WorkItem.Remove(item);
+
+            _db.SaveChanges();
+
+            return RedirectToAction("Index");
+
+        }
     }
 }
