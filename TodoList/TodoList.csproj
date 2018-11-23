@@ -184,6 +184,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Database1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\IRepository.cs" />
     <Compile Include="Models\WorkItem.cs">
       <DependentUpon>Database1.tt</DependentUpon>
     </Compile>

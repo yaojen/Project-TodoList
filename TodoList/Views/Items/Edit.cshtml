@@ -6,7 +6,7 @@
 <h2>編輯</h2>
 
 
-@using (@Html.BeginForm("EditPost", "Index", FormMethod.Post))
+@using (@Html.BeginForm("EditPost", "Items", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     <table>
@@ -29,7 +29,7 @@
             </tr>
             <tr>
                 <td>Finished</td>
-                <td><input name="finished" type="checkbox" value=@Model.Finished  /></td>
+                <td><input name="Finished" type="checkbox" value=@Model.Finished /></td>
             </tr>
             <tr>
                 <td colspan="2"><input type="submit" value="修改"/></td>

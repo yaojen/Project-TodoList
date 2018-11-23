@@ -1,0 +1,11 @@
+﻿@using TodoList.CommonClass
+
+@if (TempData.GetAlerts().Any())
+{
+    <script type="text/javascript">
+        $(function() {
+          alert('@String.Join("\\n",
+             TempData.GetAlerts().Select(x => x.Message.ToString()))');
+       });
+    </script>
+}
