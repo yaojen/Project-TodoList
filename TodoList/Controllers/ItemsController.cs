@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using TodoList.Models;
 using System.Net;
 using TodoList.ViewModel;
+using TodoList.CommonClass;
 
 namespace TodoList.Controllers
 {
@@ -42,6 +43,7 @@ namespace TodoList.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(ItemsCreateViewModel itemsCreateViewModel)
         {
+            string message = "";
             try
             {
                 if (ModelState.IsValid)
@@ -56,14 +58,17 @@ namespace TodoList.Controllers
                     };
                     _db.WorkItem.Add(workItem);
                     _db.SaveChanges();
+
+                    message = "新增成功";
                 }
             }
             catch (Exception)
             {
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+                message = "新增失敗";
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index").WithWarning(message);
         }
 
 
@@ -88,24 +93,25 @@ namespace TodoList.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        [Route(Name = "Edit")]
-        public ActionResult EditPost(int? id)
+        public ActionResult EditPost(ItemsEditViewModel itemsEditViewModel)
         {
-            if (id == null)
+            string message = "";
+            if (itemsEditViewModel.Id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
             if (ModelState.IsValid)
             {
-                var workitem = _db.WorkItem.Find(id);
+                var workitem = _db.WorkItem.Find(itemsEditViewModel.Id);
 
                 if (TryUpdateModel(workitem, new string[] { }))
                 {
                     try
                     {
                         _db.SaveChanges();
-                        return RedirectToAction("Index");
+                        message = "修改成功";
+                        return RedirectToAction("Index").WithSuccess(message);
                     }
                     catch (Exception)
                     {
@@ -115,7 +121,7 @@ namespace TodoList.Controllers
                 }
             }
 
-            return View();
+            return RedirectToAction("Index").WithSuccess("修改成功") ;
         }
 
 
@@ -136,7 +142,7 @@ namespace TodoList.Controllers
 
             _db.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index").WithSuccess("刪除成功"); ;
 
         }
     }
